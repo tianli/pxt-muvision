@@ -1,6 +1,6 @@
 {
     "name": "muvision",
-    "version": "0.2.11",
+    "version": "0.2.12",
     "description": "WARNING!!!\nTest MU3 lib pxt-muvision",
     "license": "MIT",
     "dependencies": {

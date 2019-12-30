@@ -32,10 +32,10 @@
         "enums.d.ts",
         "mu_vision_sensor3.cpp",
         "mu_vision_sensor3.ts",
-        "_locales/zh-cn/MuVisionSensor3-strings.json",
-        "_locales/zh-cn/MuVisionSensor3-jsdoc-strings.json",
-        "_locales/zh-tw/MuVisionSensor3-strings.json",
-        "_locales/zh-tw/MuVisionSensor3-jsdoc-strings.json"
+        "_locales/zh-cn/muvision-strings.json",
+        "_locales/zh-cn/muvision-jsdoc-strings.json",
+        "_locales/zh-tw/muvision-strings.json",
+        "_locales/zh-tw/muvision-jsdoc-strings.json"
     ],
     "testFiles": [
         "test.ts"

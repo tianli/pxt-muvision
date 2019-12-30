@@ -177,41 +177,41 @@
     }
 
 
-    declare const enum mu_id_t {
+    declare const enum MuId {
     //% block="MU00"
-    MU00 = 0,
+    Mu00 = 0,
     //% block="MU01"
-    MU01 = 1,
+    Mu01 = 1,
     //% block="MU10"
-    MU10 = 2,
+    Mu10 = 2,
     //% block="MU11"
-    MU11 = 3,
+    Mu11 = 3,
     }
 
 
-    declare const enum mu_status_t {
+    declare const enum MuStatus {
     //% block="enable"
-    enable = 1,
+    Enable = 1,
     //% block="disable"
-    disable = 0,
+    Eisable = 0,
     }
 
 
-    declare const enum mu_ls_t {
+    declare const enum MuLsType {
     //% block="proximity detect"
-    kLsProximity = 1,
+    LsProximity = 1,
     //% block="ambient light detect"
-    kLsAmbientLight = 2,
+    LsAmbientLight = 2,
     //% block="gesture detect"
-    kLsGesture = 8,
+    LsGesture = 8,
     }
 
 
-    declare const enum mu3at_mode_t {
+    declare const enum MuAtMode {
     //%block="STA"
-    kModeSTA = 0,
+    ModeSTA = 0,
     //%block="AP"
-    kModeAP = 1,
+    ModeAP = 1,
     }
 declare namespace muvision {
 }

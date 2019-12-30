@@ -1,3 +1,3 @@
-muvision.begin(mu_id_t.MU00, MuVsMode.kSerialMode)
-muvision.visionBegin(mu_id_t.MU00, mu_status_t.enable, MuVsMessageVisionType.kVisionBall)
+muvision.begin(MuId.Mu00, MuVsMode.kSerialMode)
+muvision.visionBegin(MuId.Mu00, MuStatus.Enable, MuVsMessageVisionType.kVisionBall)
 

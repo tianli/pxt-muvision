@@ -4,38 +4,38 @@
 
 MuVisionSensor* MU[4]={nullptr};
 
-enum mu_id_t {
+enum MuId {
     //% block="MU00"
-    MU00=0,
+    Mu00=0,
     //% block="MU01"
-    MU01,
+    Mu01,
     //% block="MU10"
-    MU10,
+    Mu10,
     //% block="MU11"
-    MU11
+    Mu11
 };
 
-enum mu_status_t {
+enum MuStatus {
     //% block="enable"
-    enable=1,
+    Enable=1,
     //% block="disable"
-    disable=0
+    Eisable=0
 };
 
-enum mu_ls_t {
+enum MuLsType {
     //% block="proximity detect"
-    kLsProximity=       1,
+    LsProximity=       1,
     //% block="ambient light detect"
-    kLsAmbientLight=    2,
+    LsAmbientLight=    2,
     //% block="gesture detect"
-    kLsGesture=         8,
+    LsGesture=         8,
 };
 
-enum mu3at_mode_t {
+enum MuAtMode {
     //%block="STA"
-    kModeSTA,
+    ModeSTA,
     //%block="AP"
-    kModeAP,
+    ModeAP,
 };
 
 //% color="#ff6600" weight=50 icon="\uf110"
@@ -46,7 +46,7 @@ namespace muvision {
      */
     //% blockId=mu3_begin block="init %id|interface %port"
     //% group="Settings"
-    void begin(mu_id_t id, MuVsMode port) {
+    void begin(MuId id, MuVsMode port) {
         if (!MU[id]) {
             MU[id] = new MuVisionSensor(0x60+id);
         }
@@ -63,7 +63,7 @@ namespace muvision {
      */
     //% blockId=mu3_reset block="%id|restore default settings"
     //% group="Settings"
-    void reset(mu_id_t id){
+    void reset(MuId id){
         MuVisionSensor *mu = MU[id];
         while(mu->SensorSetDefault()!=MU_OK);
     }
@@ -74,7 +74,7 @@ namespace muvision {
     //% blockId=mu3_vision_begin block="%id|%enable|algorithm%type"
     //% weight=50
     //% group="Settings"
-    void visionBegin(mu_id_t id, mu_status_t status, MuVsMessageVisionType type){
+    void visionBegin(MuId id, MuStatus status, MuVsMessageVisionType type){
         MuVisionSensor *mu = MU[id];
         if (status) {
             while(mu->VisionBegin((MuVisionType)visionTypeEnumToMacro(type))!=MU_OK);
@@ -94,7 +94,7 @@ namespace muvision {
     //% blockId=mu3_led_set_color block="%id|LED %led|when detected %detected_color|when undetected %undetected_color"
     //% weight=200 inlineInputMode=inline
     //% group="Settings" advanced=true
-    void ledSetColor(mu_id_t id, MuVsLed led, MuVsLedColor detected_color, MuVsLedColor undetected_color) {
+    void ledSetColor(MuId id, MuVsLed led, MuVsLedColor detected_color, MuVsLedColor undetected_color) {
         if (detected_color == undetected_color) {
             while(MU[id]->LedSetMode(led, 1, 1) != MU_OK);
         } else {
@@ -111,7 +111,7 @@ namespace muvision {
     //% blockId=mu3_vision_set_level block="%id|algorithm%VISION_TYPE|Level%level"
     //% weight=96
     //% group="Settings" advanced=true
-    void visionSetLevel(mu_id_t id, MuVsMessageVisionType type, MuVsVisionLevel level){
+    void visionSetLevel(MuId id, MuVsMessageVisionType type, MuVsVisionLevel level){
         while(MU[id]->VisionSetLevel((MuVisionType)visionTypeEnumToMacro(type), level) != MU_OK);
     }
     /**
@@ -122,7 +122,7 @@ namespace muvision {
     //% blockId=mu3_camera_set_zoom block="%id|digital zoom%level"
     //% weight=95
     //% group="Settings" advanced=true
-    void cameraSetZoom(mu_id_t id, MuVsCameraZoom zoom) {
+    void cameraSetZoom(MuId id, MuVsCameraZoom zoom) {
         while(MU[id]->CameraSetZoom(zoom) != MU_OK);
     }
 
@@ -134,7 +134,7 @@ namespace muvision {
     //% blockId=mu3_camera_set_awb block="%id|white balance%wb"
     //% weight=93
     //% group="Settings" advanced=true
-    void cameraSetAwb(mu_id_t id, MuVsCameraWhiteBalance wb) {
+    void cameraSetAwb(MuId id, MuVsCameraWhiteBalance wb) {
         while(MU[id]->CameraSetAwb(wb) != MU_OK);
     }
     /**
@@ -145,7 +145,7 @@ namespace muvision {
     //% blockId=mu3_camera_set_fps block="%id|high FPS mode$on"
     //% on.shadow="toggleOnOff" on.defl="true"
     //% group="Settings" advanced=true
-    void cameraSetFPS(mu_id_t id, bool on) {
+    void cameraSetFPS(MuId id, bool on) {
         while(MU[id]->CameraSetFPS(MuVsCameraFPS(on)) != MU_OK);
     }
     /**
@@ -156,8 +156,8 @@ namespace muvision {
      */
     //% blockId=MU3LsBegin block="%id|light sensor|%status|%ls_type"
     //% group="Light Sensor"
-    void lsBegin(mu_id_t id, mu_status_t status, mu_ls_t ls_type) {
-        if (status == enable) {
+    void lsBegin(MuId id, MuStatus status, MuLsType ls_type) {
+        if (status == Enable) {
             MU[id]->LsBegin(ls_type);
         } else {
             MU[id]->LsEnd(ls_type);
@@ -170,7 +170,7 @@ namespace muvision {
      */
     //% blockId=MU3LsSetSensitivity block="%id|light sensor|set sensitivity%sensitivity"
     //% group="Light Sensor"
-    void lsSetSensitivity(mu_id_t id, MuVsLsSensitivity sensitivity) {
+    void lsSetSensitivity(MuId id, MuVsLsSensitivity sensitivity) {
         MU[id]->LsSetSensitivity(sensitivity);
     }
     /**
@@ -180,7 +180,7 @@ namespace muvision {
      */
     //% blockId=MU3LsReadProximity block="%id|light sensor|read proximity"
     //% group="Light Sensor"
-    uint8_t lsReadProximity(mu_id_t id) {
+    uint8_t lsReadProximity(MuId id) {
         return MU[id]->LsReadProximity();
     }
     /**
@@ -190,7 +190,7 @@ namespace muvision {
      */
     //% blockId=MU3LsReadAmbientLight block="%id|light sensor|read ambient light"
     //% group="Light Sensor"
-    uint16_t lsReadAmbientLight(mu_id_t id) {
+    uint16_t lsReadAmbientLight(MuId id) {
         return MU[id]->LsReadAmbientLight();
     }
     // /**
@@ -208,7 +208,7 @@ namespace muvision {
     // //% blockId=mu3_ls_read_color block="%id|light sensor|read color%color_t"
     // //% group="Light Sensor"
     // //% deprecated=true
-    // uint16_t LsReadColor(mu_id_t id, MuVsLsColorType color_t) {
+    // uint16_t LsReadColor(MuId id, MuVsLsColorType color_t) {
     //     return MU[id]->LsReadColor(color_t);
     // }
     /**
@@ -218,7 +218,7 @@ namespace muvision {
      * @param object_inf:  object information
     */
     //% blockId=mu3_get_value
-    int getValue(mu_id_t id, MuVsMessageVisionType vision_type, MuVsObjectInf object_inf) {
+    int getValue(MuId id, MuVsMessageVisionType vision_type, MuVsObjectInf object_inf) {
         return MU[id]->GetValue((MuVisionType)visionTypeEnumToMacro(vision_type), object_inf);
     }
     /**
@@ -229,7 +229,7 @@ namespace muvision {
      * @param value  value
      */
     //% blockId=mu3_write
-    void write(mu_id_t id, MuVsMessageVisionType vision_type, MuVsObjectInf object_inf, uint8_t value) {
+    void write(MuId id, MuVsMessageVisionType vision_type, MuVsObjectInf object_inf, int value) {
         MU[id]->write((MuVisionType)visionTypeEnumToMacro(vision_type), object_inf, value);
     }
     /**
@@ -237,7 +237,7 @@ namespace muvision {
      * @retval Gesture witch MU detected.
      */
     //% blockId=mu3_ls_read_gesture
-    MuVsLsGesture lsReadGesture(mu_id_t id) {
+    MuVsLsGesture lsReadGesture(MuId id) {
         return MU[id]->LsReadGesture();
     }
     // //%
@@ -274,7 +274,7 @@ namespace muvisionAT {
     /**
      * Read SIP 
      */
-    //% blockId=MU3ATWifiSIP block="MU|read SIP"
+    //% blockId=mu3_at_wifi_sip block="MU|read SIP"
     //% group="MUVisionSensor3_AT"
     String wifiSIP() {
         return MU3_AT.WifiSIP();
@@ -282,7 +282,7 @@ namespace muvisionAT {
     /**
      * Read CIP 
      */
-    //% blockId=MU3ATWifiCIP block="MU|read CIP"
+    //% blockId=mu3_at_wifi_cip block="MU|read CIP"
     //% group="MUVisionSensor3_AT"
     String wifiCIP() {
         return MU3_AT.WifiCIP();
@@ -290,14 +290,14 @@ namespace muvisionAT {
     /**
      * MU AT wifi set
      */
-    //% blockId=MU3ATWifiSet block="MU|WiFi set|ssid|%ssid|password|%password|apmode|%apmode"
+    //% blockId=mu3_at_wifi_set block="MU|WiFi set|ssid|%ssid|password|%password|apmode|%apmode"
     //% group="MUVisionSensor3_AT"
-    void wifiSet(String ssid, String password, mu3at_mode_t apmode) {
+    void wifiSet(String ssid, String password, MuAtMode apmode) {
         switch (apmode) {
-            case kModeSTA:
+            case ModeSTA:
                 MU3_AT.WifiSet(ssid->getUTF8Data(), password->getUTF8Data(), "STA");
                 break;
-            case kModeAP:
+            case ModeAP:
                 MU3_AT.WifiSet(ssid->getUTF8Data(), password->getUTF8Data(), "AP");
                 break;
             default:
@@ -307,7 +307,7 @@ namespace muvisionAT {
     /**
      * MU AT wifi connect, return `true`=success
      */
-    //% blockId=MU3ATWifiCon block="MU|WiFi connect|%status"
+    //% blockId=mu3_at_wifi_con block="MU|WiFi connect|%status"
     //% status.shadow="toggleOnOff" status.defl="true"
     //% group="MUVisionSensor3_AT"
     bool wifiCon(bool status) {
@@ -320,7 +320,7 @@ namespace muvisionAT {
     /**
      * MU AT wifi set target IP&port 
      */
-    //% blockId=MU3ATWifiUDP block="MU|WiFi set target IP|%ip|port|%port"
+    //% blockId=mu3_at_wifi_udp block="MU|WiFi set target IP|%ip|port|%port"
     //% group="MUVisionSensor3_AT"
     void wifiUDP(String ip, String port) {
         MU3_AT.WifiUDP(ip->getUTF8Data(), port->getUTF8Data());
@@ -328,7 +328,7 @@ namespace muvisionAT {
     /**
      * MU AT wifi read data 
      */
-    //% blockId=MU3ATWifiRead block="MU|WiFi read"
+    //% blockId=mu3_at_wifi_read block="MU|WiFi read"
     //% group="MUVisionSensor3_AT"
     int wifiRead() {
         if (MU3_AT.available()) {

@@ -39,13 +39,12 @@ enum mu3at_mode_t {
 };
 
 //% color="#ff6600" weight=50 icon="\uf110"
-namespace MUVisionSensor {
+namespace muvision {
 
     /**
      * Initialize MU.
      */
-    //% blockId=mu_init block="init %id|interface %port"
-    //% weight=100
+    //% blockId=mu3_begin block="init %id|interface %port"
     //% group="Settings"
     void begin(mu_id_t id, MuVsMode port) {
         if (!MU[id]) {
@@ -62,8 +61,7 @@ namespace MUVisionSensor {
     /**
      * Reset MU.
      */
-    //% blockId=MU_reset block="%id|restore default settings"
-    //% weight=100
+    //% blockId=mu3_reset block="%id|restore default settings"
     //% group="Settings"
     void reset(mu_id_t id){
         MuVisionSensor *mu = MU[id];
@@ -73,10 +71,10 @@ namespace MUVisionSensor {
     /**
      * MU vision begin.
      */
-    //% blockId=MU_VisionBegin block="%id|%enable|algorithm%type"
+    //% blockId=mu3_vision_begin block="%id|%enable|algorithm%type"
     //% weight=50
     //% group="Settings"
-    void VisionBegin(mu_id_t id, mu_status_t status, MuVsMessageVisionType type){
+    void visionBegin(mu_id_t id, mu_status_t status, MuVsMessageVisionType type){
         MuVisionSensor *mu = MU[id];
         if (status) {
             while(mu->VisionBegin((MuVisionType)visionTypeEnumToMacro(type))!=MU_OK);
@@ -93,10 +91,10 @@ namespace MUVisionSensor {
      * @param undetected_color led color while sensor undetected target.
      * @param level led brightness, form 0(close) to 15
      */
-    //% blockId=MU_set_led block="%id|LED %led|when detected %detected_color|when undetected %undetected_color"
+    //% blockId=mu3_led_set_color block="%id|LED %led|when detected %detected_color|when undetected %undetected_color"
     //% weight=200 inlineInputMode=inline
     //% group="Settings" advanced=true
-    void set_led(mu_id_t id, MuVsLed led, MuVsLedColor detected_color, MuVsLedColor undetected_color) {
+    void ledSetColor(mu_id_t id, MuVsLed led, MuVsLedColor detected_color, MuVsLedColor undetected_color) {
         if (detected_color == undetected_color) {
             while(MU[id]->LedSetMode(led, 1, 1) != MU_OK);
         } else {
@@ -110,10 +108,10 @@ namespace MUVisionSensor {
      * @param type vision type
      * @param level vision level
      */
-    //% blockId=MU_set_level block="%id|algorithm%VISION_TYPE|Level%level"
+    //% blockId=mu3_vision_set_level block="%id|algorithm%VISION_TYPE|Level%level"
     //% weight=96
     //% group="Settings" advanced=true
-    void set_level(mu_id_t id, MuVsMessageVisionType type, MuVsVisionLevel level){
+    void visionSetLevel(mu_id_t id, MuVsMessageVisionType type, MuVsVisionLevel level){
         while(MU[id]->VisionSetLevel((MuVisionType)visionTypeEnumToMacro(type), level) != MU_OK);
     }
     /**
@@ -121,35 +119,22 @@ namespace MUVisionSensor {
      * @param id MU id
      * @param zoom zoom value.
      */
-    //% blockId=MU_set_zoom block="%id|digital zoom%level"
+    //% blockId=mu3_camera_set_zoom block="%id|digital zoom%level"
     //% weight=95
     //% group="Settings" advanced=true
-    void set_zoom(mu_id_t id, MuVsCameraZoom zoom) {
+    void cameraSetZoom(mu_id_t id, MuVsCameraZoom zoom) {
         while(MU[id]->CameraSetZoom(zoom) != MU_OK);
     }
 
-    // /**
-    //  * set UART baud rate.
-    //  * @param id MU id
-    //  * @param  UART baud rate.
-    //  */
-    // //% blockId=MU_set_baudrate block="%id|baudrate%baud"
-    // //% weight=94 inlineInputMode=inline
-    // //% group="Settings" advanced=true
-    // //% deprecated=true
-    // void set_baudrate(mu_id_t id, MuVsBaudrate baud){
-    //     MuVisionSensor *mu = MU[id];
-    //     while(MU[id]->UartSetBaudrate(MuVsBaudrate(baud)) != MU_OK);
-    // }
     /**
      * set camera white balance.
      * @param id MU id
      * @param wb white balance type.
      */
-    //% blockId=MU_set_awb block="%id|white balance%wb"
+    //% blockId=mu3_camera_set_awb block="%id|white balance%wb"
     //% weight=93
     //% group="Settings" advanced=true
-    void set_WB(mu_id_t id, MuVsCameraWhiteBalance wb) {
+    void cameraSetAwb(mu_id_t id, MuVsCameraWhiteBalance wb) {
         while(MU[id]->CameraSetAwb(wb) != MU_OK);
     }
     /**
@@ -157,10 +142,10 @@ namespace MUVisionSensor {
      * @param id MU id
      * @param on FPS type.
      */
-    //% blockId=MU3CameraSetFPS block="%id|high FPS mode$on"
+    //% blockId=mu3_camera_set_fps block="%id|high FPS mode$on"
     //% on.shadow="toggleOnOff" on.defl="true"
     //% group="Settings" advanced=true
-    void onOff(mu_id_t id, bool on) {
+    void cameraSetFPS(mu_id_t id, bool on) {
         while(MU[id]->CameraSetFPS(MuVsCameraFPS(on)) != MU_OK);
     }
     /**
@@ -171,7 +156,7 @@ namespace MUVisionSensor {
      */
     //% blockId=MU3LsBegin block="%id|light sensor|%status|%ls_type"
     //% group="Light Sensor"
-    void LsBegin(mu_id_t id, mu_status_t status, mu_ls_t ls_type) {
+    void lsBegin(mu_id_t id, mu_status_t status, mu_ls_t ls_type) {
         if (status == enable) {
             MU[id]->LsBegin(ls_type);
         } else {
@@ -185,7 +170,7 @@ namespace MUVisionSensor {
      */
     //% blockId=MU3LsSetSensitivity block="%id|light sensor|set sensitivity%sensitivity"
     //% group="Light Sensor"
-    void LsSetSensitivity(mu_id_t id, MuVsLsSensitivity sensitivity) {
+    void lsSetSensitivity(mu_id_t id, MuVsLsSensitivity sensitivity) {
         MU[id]->LsSetSensitivity(sensitivity);
     }
     /**
@@ -195,7 +180,7 @@ namespace MUVisionSensor {
      */
     //% blockId=MU3LsReadProximity block="%id|light sensor|read proximity"
     //% group="Light Sensor"
-    uint8_t LsReadProximity(mu_id_t id) {
+    uint8_t lsReadProximity(mu_id_t id) {
         return MU[id]->LsReadProximity();
     }
     /**
@@ -205,39 +190,35 @@ namespace MUVisionSensor {
      */
     //% blockId=MU3LsReadAmbientLight block="%id|light sensor|read ambient light"
     //% group="Light Sensor"
-    uint16_t LsReadAmbientLight(mu_id_t id) {
+    uint16_t lsReadAmbientLight(mu_id_t id) {
         return MU[id]->LsReadAmbientLight();
     }
-    /**
-     * @brief Read light sensor color data.
-     * @param id MU id
-     * @param color_t kLsColorLabel:      get color label
-     *                    kLsColorRed:        get RGB R value(0~255)
-     *                    kLsColorGreen:      get RGB G value(0~255)
-     *                    kLsColorBlue:       get RGB B value(0~255)
-     *                    kLsColorHue:        get HSV H value(0~360)
-     *                    kLsColorSaturation: get HSV S value(0~255)
-     *                    kLsColorValue:      get HSV V value(0~255)
-     * @retval Light sensor detected color data value
-     */
-    //% blockId=MU3LsReadColor block="%id|light sensor|read color %color_t"
-    //% group="Light Sensor"
-    //% deprecated=true
-    uint16_t LsReadColor(mu_id_t id, MuVsLsColorType color_t) {
-        return MU[id]->LsReadColor(color_t);
-    }
-}
-
-//% color="#ff6600" weight=50 icon="\uf110"
-namespace muvs {
+    // /**
+    //  * Read light sensor color data.
+    //  * @param id MU id
+    //  * @param color_t kLsColorLabel:      get color label
+    //  *                kLsColorRed:        get RGB R value(0~255)
+    //  *                kLsColorGreen:      get RGB G value(0~255)
+    //  *                kLsColorBlue:       get RGB B value(0~255)
+    //  *                kLsColorHue:        get HSV H value(0~360)
+    //  *                kLsColorSaturation: get HSV S value(0~255)
+    //  *                kLsColorValue:      get HSV V value(0~255)
+    //  * @retval Light sensor detected color data value
+    //  */
+    // //% blockId=mu3_ls_read_color block="%id|light sensor|read color%color_t"
+    // //% group="Light Sensor"
+    // //% deprecated=true
+    // uint16_t LsReadColor(mu_id_t id, MuVsLsColorType color_t) {
+    //     return MU[id]->LsReadColor(color_t);
+    // }
     /**
      * get vision result data, this function will update vision result automatically.
      * @param id MU id
      * @param vision_type: vision type.
      * @param object_inf:  object information
     */
-    //% blockId=MU3GetValue
-    int GetValue(mu_id_t id, MuVsMessageVisionType vision_type, MuVsObjectInf object_inf) {
+    //% blockId=mu3_get_value
+    int getValue(mu_id_t id, MuVsMessageVisionType vision_type, MuVsObjectInf object_inf) {
         return MU[id]->GetValue((MuVisionType)visionTypeEnumToMacro(vision_type), object_inf);
     }
     /**
@@ -247,7 +228,7 @@ namespace muvs {
      * @param object_inf  object information
      * @param value  value
      */
-    //% blockId=MU3write
+    //% blockId=mu3_write
     void write(mu_id_t id, MuVsMessageVisionType vision_type, MuVsObjectInf object_inf, uint8_t value) {
         MU[id]->write((MuVisionType)visionTypeEnumToMacro(vision_type), object_inf, value);
     }
@@ -255,26 +236,26 @@ namespace muvs {
      * @brief Read gesture sensor data.
      * @retval Gesture witch MU detected.
      */
-    //% blockId=MU3LsReadGesture
-    MuVsLsGesture LsReadGesture(mu_id_t id) {
+    //% blockId=mu3_ls_read_gesture
+    MuVsLsGesture lsReadGesture(mu_id_t id) {
         return MU[id]->LsReadGesture();
     }
-    //%
-    int get_value(int id, int type, int item){
-        MuVisionSensor *mu = MU[id];
-        type=1<<(type-1);
-        return mu->GetValue(type,MuVsObjectInf(item));    
-    }
-    //%
-    int get_color_value(int id, int item){
-        MuVisionSensor *mu = MU[id];
-        return mu->GetValue(VISION_COLOR_RECOGNITION,MuVsObjectInf(item));    
-    }
+    // //%
+    // int getValue(int id, int type, int item){
+    //     MuVisionSensor *mu = MU[id];
+    //     type=1<<(type-1);
+    //     return MU[id]->GetValue(type, MuVsObjectInf(item));    
+    // }
+    // //%
+    // int get_color_value(int id, int item){
+    //     MuVisionSensor *mu = MU[id];
+    //     return mu->GetValue(VISION_COLOR_RECOGNITION,MuVsObjectInf(item));    
+    // }
 }
 
 //% color="#11ACEF" icon="\uf1eb"
-namespace MUVisionSensor_AT {
-    int Mu3AtRead8() {
+namespace muvisionAT {
+    int read8() {
         uint64_t time = system_timer_current_time();  
         int c = 0;
         do {
@@ -285,17 +266,17 @@ namespace MUVisionSensor_AT {
         }
         return c;
     }
-    void Mu3AtWrite8(uint8_t c) {
+    void write8(uint8_t c) {
         uBit.serial.sendChar(c);
     }
-    MuVisionSensor3_AT MU3_AT(Mu3AtRead8, Mu3AtWrite8);
+    MuVisionSensor3_AT MU3_AT(read8, write8);
 
     /**
      * Read SIP 
      */
     //% blockId=MU3ATWifiSIP block="MU|read SIP"
     //% group="MUVisionSensor3_AT"
-    String WifiSIP() {
+    String wifiSIP() {
         return MU3_AT.WifiSIP();
     }
     /**
@@ -303,7 +284,7 @@ namespace MUVisionSensor_AT {
      */
     //% blockId=MU3ATWifiCIP block="MU|read CIP"
     //% group="MUVisionSensor3_AT"
-    String WifiCIP() {
+    String wifiCIP() {
         return MU3_AT.WifiCIP();
     }
     /**
@@ -311,7 +292,7 @@ namespace MUVisionSensor_AT {
      */
     //% blockId=MU3ATWifiSet block="MU|WiFi set|ssid|%ssid|password|%password|apmode|%apmode"
     //% group="MUVisionSensor3_AT"
-    void WifiSet(String ssid, String password, mu3at_mode_t apmode) {
+    void wifiSet(String ssid, String password, mu3at_mode_t apmode) {
         switch (apmode) {
             case kModeSTA:
                 MU3_AT.WifiSet(ssid->getUTF8Data(), password->getUTF8Data(), "STA");
@@ -329,7 +310,7 @@ namespace MUVisionSensor_AT {
     //% blockId=MU3ATWifiCon block="MU|WiFi connect|%status"
     //% status.shadow="toggleOnOff" status.defl="true"
     //% group="MUVisionSensor3_AT"
-    bool WifiCon(bool status) {
+    bool wifiCon(bool status) {
         if (status) {
             return !MU3_AT.WifiCon("1");
         } else {
@@ -341,7 +322,7 @@ namespace MUVisionSensor_AT {
      */
     //% blockId=MU3ATWifiUDP block="MU|WiFi set target IP|%ip|port|%port"
     //% group="MUVisionSensor3_AT"
-    void WifiUDP(String ip, String port) {
+    void wifiUDP(String ip, String port) {
         MU3_AT.WifiUDP(ip->getUTF8Data(), port->getUTF8Data());
     }
     /**
@@ -349,10 +330,10 @@ namespace MUVisionSensor_AT {
      */
     //% blockId=MU3ATWifiRead block="MU|WiFi read"
     //% group="MUVisionSensor3_AT"
-    int WifiRead() {
+    int wifiRead() {
         if (MU3_AT.available()) {
             return MU3_AT.read8();;
         }
-        return Mu3AtRead8();
+        return read8();
     }
 }

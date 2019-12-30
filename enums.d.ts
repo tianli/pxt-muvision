@@ -213,11 +213,9 @@
     //%block="AP"
     kModeAP = 1,
     }
-declare namespace MUVisionSensor {
+declare namespace muvision {
 }
-declare namespace muvs {
-}
-declare namespace MUVisionSensor_AT {
+declare namespace muvisionAT {
 }
 
 // Auto-generated. Do not edit. Really.

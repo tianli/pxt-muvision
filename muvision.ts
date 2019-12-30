@@ -1,5 +1,5 @@
 //% color="#ff6600" weight=20 icon="\uf085"
-namespace MUVisionSensor {
+namespace muvision {
     export enum VISION_TYPE {
         //% block="🌈 Color Block"
         VISION_COLOR_DETECT=1,
@@ -118,18 +118,18 @@ namespace MUVisionSensor {
     }
     export enum ColorParams {
         //% block="red channel"
-        Red_channal=6,
+        RedChannal=6,
         //% block="green channel"
-        Green_channal=7,
+        GreenChannal=7,
         //% block="blue channel"
-        Blue_channal=8,
+        BlueChannal=8,
         //% block="label"
-        LABLE=5
+        Label=5
     }
     export enum DIR {
-        //%blockId=DIR_X block="X"
+        //%block="X"
         X = 0,
-        //%blockId=DIR_Y block="Y"
+        //%block="Y"
         Y
     }
 
@@ -138,83 +138,81 @@ namespace MUVisionSensor {
      * @param id MU id
      * @param type vision type
      */
-    //% blockId=MU3Detected block="%id|is detected%type" color="#2E8B57"
+    //% blockId=mu3_detected block="%id|is detected%type" color="#2E8B57"
     //% weight=79
     //% group="Functions"
     export function detected(id:mu_id_t, type:MuVsMessageVisionType):boolean{
-        return muvs.GetValue(id, type, MuVsObjectInf.kStatus) ? true:false
+        return muvision.getValue(id, type, MuVsObjectInf.kStatus) ? true:false
     }
     let x_last = -1;
     let y_last = -1;
-    //% blockId=MU3GetColorRCGLabel block="%id|is detected 🌈 Color Recognition x%x|y%y" color="#2E8B57"
+    //% blockId=mu3_color_rcg_label block="%id|is detected 🌈 Color Recognition x%x|y%y" color="#2E8B57"
     //% x.min=0 x.max=100 x.defl=50
     //% y.min=0 y.max=100 y.defl=50
     //% group="Functions"
-    export function MuVs2GetColorRCGLabel(id:mu_id_t,x:number,y:number):boolean{
+    export function colorRcgLabel(id:mu_id_t,x:number,y:number):boolean{
         x = x>100 ? 100:(x<0 ? 0:x);
         y = y>100 ? 100:(y<0 ? 0:y);
         if (x != x_last) {
             x_last = x;
-            muvs.write(id, MuVsMessageVisionType.kVisionColorRecog, MuVsObjectInf.kXValue, x);
+            muvision.write(id, MuVsMessageVisionType.kVisionColorRecog, MuVsObjectInf.kXValue, x);
         }
         if (y != y_last) {
             y_last = y;
-            muvs.write(id, MuVsMessageVisionType.kVisionColorRecog, MuVsObjectInf.kYValue, y);
+            muvision.write(id, MuVsMessageVisionType.kVisionColorRecog, MuVsObjectInf.kYValue, y);
         }
-        return muvs.GetValue(id, MuVsMessageVisionType.kVisionColorRecog, MuVsObjectInf.kStatus) ? true:false
+        return muvision.getValue(id, MuVsMessageVisionType.kVisionColorRecog, MuVsObjectInf.kStatus) ? true:false
     }
     let label_last = -1;
-    //% blockId=MU3GetColorDetectLabel block="%id|is detected 🌈 Color Block color%color" color="#2E8B57"
+    //% blockId=mu3_get_color_detect_label block="%id|is detected 🌈 Color Block color%color" color="#2E8B57"
     //% group="Functions"
-    export function MuVs2GetColorDetectLabel(id:mu_id_t,label:COLOR_TYPE):boolean{
+    export function colorDetectLabel(id:mu_id_t,label:COLOR_TYPE):boolean{
         if (label_last != label) {
             label_last = label;
-            muvs.write(id, MuVsMessageVisionType.kVisionColorDetect, MuVsObjectInf.kLabel, label)
+            muvision.write(id, MuVsMessageVisionType.kVisionColorDetect, MuVsObjectInf.kLabel, label)
         }
-        return muvs.GetValue(id, MuVsMessageVisionType.kVisionColorDetect, MuVsObjectInf.kStatus) ? true:false
+        return muvision.getValue(id, MuVsMessageVisionType.kVisionColorDetect, MuVsObjectInf.kStatus) ? true:false
     }
     //% block="get%id|%type|%item" color="#2E8B57"
-    //% shim=muvs::get_value
     //% group="Functions"
-    export function get_value(id:mu_id_t,type:_VISION_TYPE,item:Params):number{
-        return 0
+    export function visionValue(id: mu_id_t, type: _VISION_TYPE, item: Params): number {
+        return muvision.getValue(id, <number>type, <number>item)
     }
     //% block="get%id|🌈 Color Recognition|%item" color="#2E8B57"
-    //% shim=muvs::get_color_value
     //% group="Functions"
-    export function get_color_value(id:mu_id_t,item:ColorParams):number{
-        return 0
+    export function colorRcgValue(id:mu_id_t,item:ColorParams):number{
+        return muvision.getValue(id, MuVsMessageVisionType.kVisionColorRecog, <number>item)
     }
-    //% blockId=MU3GetShapeCardType block="%id|get 🔳 Shape Card =%type" color="#2E8B57"
+    //% blockId=mu3_shape_card_type block="%id|get 🔳 Shape Card =%type" color="#2E8B57"
     //% group="Functions"
-    export function get_shape_card_type(id:mu_id_t,type:SHAPE_CARD_TYPE):boolean{
-        return muvs.GetValue(id, MuVsMessageVisionType.kVisionShapeCard, MuVsObjectInf.kLabel) == type
+    export function shapeCardType(id:mu_id_t,type:SHAPE_CARD_TYPE):boolean{
+        return muvision.getValue(id, MuVsMessageVisionType.kVisionShapeCard, MuVsObjectInf.kLabel) == type
     }
-    //% blockId=MU3GetTrafficCardType block="%id|get 🔳 Traffic Card =%type" color="#2E8B57"
+    //% blockId=mu3_traffic_card_type block="%id|get 🔳 Traffic Card =%type" color="#2E8B57"
     //% group="Functions"
-    export function get_traffic_card_type(id:mu_id_t,type:TRAFFIC_CARD_TYPE):boolean{
-        return muvs.GetValue(id, MuVsMessageVisionType.kVisionTrafficCard, MuVsObjectInf.kLabel) == type
+    export function trafficCardType(id:mu_id_t,type:TRAFFIC_CARD_TYPE):boolean{
+        return muvision.getValue(id, MuVsMessageVisionType.kVisionTrafficCard, MuVsObjectInf.kLabel) == type
     }
-    //% blockId=MU3GetNumberCardType block="%id|get 🔳 Number Card =%type" color="#2E8B57"
+    //% blockId=mu3_number_card_type block="%id|get 🔳 Number Card =%type" color="#2E8B57"
     //% group="Functions"
-    export function get_number_card_type(id:mu_id_t,type:NUM_CARD_TYPE):boolean{
-        return muvs.GetValue(id, MuVsMessageVisionType.kVisionNumberCard, MuVsObjectInf.kLabel) == type
+    export function numberCardType(id:mu_id_t,type:NUM_CARD_TYPE):boolean{
+        return muvision.getValue(id, MuVsMessageVisionType.kVisionNumberCard, MuVsObjectInf.kLabel) == type
     }
-    //% blockId=MU3GetColorRCGType block="%id|get 🌈 Color Recognition color =%color" color="#2E8B57"
+    //% blockId=mu3_color_rcg_type block="%id|get 🌈 Color Recognition color =%color" color="#2E8B57"
     //% group="Functions"
-    export function get_color_recognize(id:mu_id_t,color:COLOR_TYPE):boolean{
-        return muvs.GetValue(id, MuVsMessageVisionType.kVisionColorRecog, MuVsObjectInf.kLabel) == color;
+    export function colorRecognizeType(id:mu_id_t,color:COLOR_TYPE):boolean{
+        return muvision.getValue(id, MuVsMessageVisionType.kVisionColorRecog, MuVsObjectInf.kLabel) == color;
     }
     let gesture = 0;
-    //% blockId=MU3MU3GestureDetect block="%id|light sensor|is detected gesture" color="#ff6600"
+    //% blockId=mu3_gesture_detect block="%id|light sensor|is detected gesture" color="#ff6600"
     //% group="Light Sensor"
-    export function GestureDetect(id:mu_id_t):boolean{
-        gesture = muvs.LsReadGesture(id);
+    export function gestureDetect(id:mu_id_t):boolean{
+        gesture = muvision.lsReadGesture(id);
         return gesture ? true:false;
     }
-    //% blockId=MU3GetGestureType block="%id|light sensor|get gesture =|%MuVsLsGesture" color="#ff6600"
+    //% blockId=mu3_gesture_type block="%id|light sensor|get gesture =|%MuVsLsGesture" color="#ff6600"
     //% group="Light Sensor"
-    export function GetGestureType(id:mu_id_t, type:MuVsLsGesture):boolean{
+    export function gestureType(id:mu_id_t, type:MuVsLsGesture):boolean{
         return gesture == type;
     }
 }

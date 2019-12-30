@@ -3,31 +3,29 @@
 
 
     //% color="#ff6600" weight=50 icon="\uf110"
-declare namespace MUVisionSensor {
+declare namespace muvision {
 
     /**
      * Initialize MU.
      */
-    //% blockId=mu_init block="init %id|interface %port"
-    //% weight=100
-    //% group="Settings" shim=MUVisionSensor::begin
+    //% blockId=mu3_begin block="init %id|interface %port"
+    //% group="Settings" shim=muvision::begin
     function begin(id: mu_id_t, port: MuVsMode): void;
 
     /**
      * Reset MU.
      */
-    //% blockId=MU_reset block="%id|restore default settings"
-    //% weight=100
-    //% group="Settings" shim=MUVisionSensor::reset
+    //% blockId=mu3_reset block="%id|restore default settings"
+    //% group="Settings" shim=muvision::reset
     function reset(id: mu_id_t): void;
 
     /**
      * MU vision begin.
      */
-    //% blockId=MU_VisionBegin block="%id|%enable|algorithm%type"
+    //% blockId=mu3_vision_begin block="%id|%enable|algorithm%type"
     //% weight=50
-    //% group="Settings" shim=MUVisionSensor::VisionBegin
-    function VisionBegin(id: mu_id_t, status: mu_status_t, type: MuVsMessageVisionType): void;
+    //% group="Settings" shim=muvision::visionBegin
+    function visionBegin(id: mu_id_t, status: mu_status_t, type: MuVsMessageVisionType): void;
 
     /**
      * set led color.
@@ -37,10 +35,10 @@ declare namespace MUVisionSensor {
      * @param undetected_color led color while sensor undetected target.
      * @param level led brightness, form 0(close) to 15
      */
-    //% blockId=MU_set_led block="%id|LED %led|when detected %detected_color|when undetected %undetected_color"
+    //% blockId=mu3_led_set_color block="%id|LED %led|when detected %detected_color|when undetected %undetected_color"
     //% weight=200 inlineInputMode=inline
-    //% group="Settings" advanced=true shim=MUVisionSensor::set_led
-    function set_led(id: mu_id_t, led: MuVsLed, detected_color: MuVsLedColor, undetected_color: MuVsLedColor): void;
+    //% group="Settings" advanced=true shim=muvision::ledSetColor
+    function ledSetColor(id: mu_id_t, led: MuVsLed, detected_color: MuVsLedColor, undetected_color: MuVsLedColor): void;
 
     /**
      * set vision level.
@@ -48,40 +46,40 @@ declare namespace MUVisionSensor {
      * @param type vision type
      * @param level vision level
      */
-    //% blockId=MU_set_level block="%id|algorithm%VISION_TYPE|Level%level"
+    //% blockId=mu3_vision_set_level block="%id|algorithm%VISION_TYPE|Level%level"
     //% weight=96
-    //% group="Settings" advanced=true shim=MUVisionSensor::set_level
-    function set_level(id: mu_id_t, type: MuVsMessageVisionType, level: MuVsVisionLevel): void;
+    //% group="Settings" advanced=true shim=muvision::visionSetLevel
+    function visionSetLevel(id: mu_id_t, type: MuVsMessageVisionType, level: MuVsVisionLevel): void;
 
     /**
      * set camera zoom.
      * @param id MU id
      * @param zoom zoom value.
      */
-    //% blockId=MU_set_zoom block="%id|digital zoom%level"
+    //% blockId=mu3_camera_set_zoom block="%id|digital zoom%level"
     //% weight=95
-    //% group="Settings" advanced=true shim=MUVisionSensor::set_zoom
-    function set_zoom(id: mu_id_t, zoom: MuVsCameraZoom): void;
+    //% group="Settings" advanced=true shim=muvision::cameraSetZoom
+    function cameraSetZoom(id: mu_id_t, zoom: MuVsCameraZoom): void;
 
     /**
      * set camera white balance.
      * @param id MU id
      * @param wb white balance type.
      */
-    //% blockId=MU_set_awb block="%id|white balance%wb"
+    //% blockId=mu3_camera_set_awb block="%id|white balance%wb"
     //% weight=93
-    //% group="Settings" advanced=true shim=MUVisionSensor::set_WB
-    function set_WB(id: mu_id_t, wb: MuVsCameraWhiteBalance): void;
+    //% group="Settings" advanced=true shim=muvision::cameraSetAwb
+    function cameraSetAwb(id: mu_id_t, wb: MuVsCameraWhiteBalance): void;
 
     /**
      * set camera FPS.
      * @param id MU id
      * @param on FPS type.
      */
-    //% blockId=MU3CameraSetFPS block="%id|high FPS mode$on"
+    //% blockId=mu3_camera_set_fps block="%id|high FPS mode$on"
     //% on.shadow="toggleOnOff" on.defl="true"
-    //% group="Settings" advanced=true on.defl=1 shim=MUVisionSensor::onOff
-    function onOff(id: mu_id_t, on?: boolean): void;
+    //% group="Settings" advanced=true on.defl=1 shim=muvision::cameraSetFPS
+    function cameraSetFPS(id: mu_id_t, on?: boolean): void;
 
     /**
      * Enable/Disable light sensor function,gesture detect can not used with other functions.
@@ -90,8 +88,8 @@ declare namespace MUVisionSensor {
      * @param[in] ls_type Function type
      */
     //% blockId=MU3LsBegin block="%id|light sensor|%status|%ls_type"
-    //% group="Light Sensor" shim=MUVisionSensor::LsBegin
-    function LsBegin(id: mu_id_t, status: mu_status_t, ls_type: mu_ls_t): void;
+    //% group="Light Sensor" shim=muvision::lsBegin
+    function lsBegin(id: mu_id_t, status: mu_status_t, ls_type: mu_ls_t): void;
 
     /**
      * Light snesor set sensitivity.
@@ -99,8 +97,8 @@ declare namespace MUVisionSensor {
      * @param sensitivity sensitivity
      */
     //% blockId=MU3LsSetSensitivity block="%id|light sensor|set sensitivity%sensitivity"
-    //% group="Light Sensor" shim=MUVisionSensor::LsSetSensitivity
-    function LsSetSensitivity(id: mu_id_t, sensitivity: MuVsLsSensitivity): void;
+    //% group="Light Sensor" shim=muvision::lsSetSensitivity
+    function lsSetSensitivity(id: mu_id_t, sensitivity: MuVsLsSensitivity): void;
 
     /**
      * @brief Read proximity data.
@@ -108,8 +106,8 @@ declare namespace MUVisionSensor {
      * @retval proximity data, 0~255.
      */
     //% blockId=MU3LsReadProximity block="%id|light sensor|read proximity"
-    //% group="Light Sensor" shim=MUVisionSensor::LsReadProximity
-    function LsReadProximity(id: mu_id_t): uint8;
+    //% group="Light Sensor" shim=muvision::lsReadProximity
+    function lsReadProximity(id: mu_id_t): uint8;
 
     /**
      * @brief Read ambient light sensor data.
@@ -117,31 +115,8 @@ declare namespace MUVisionSensor {
      * @retval ambient light sensor data, 0~65536.
      */
     //% blockId=MU3LsReadAmbientLight block="%id|light sensor|read ambient light"
-    //% group="Light Sensor" shim=MUVisionSensor::LsReadAmbientLight
-    function LsReadAmbientLight(id: mu_id_t): uint16;
-
-    /**
-     * @brief Read light sensor color data.
-     * @param id MU id
-     * @param color_t kLsColorLabel:      get color label
-     *                    kLsColorRed:        get RGB R value(0~255)
-     *                    kLsColorGreen:      get RGB G value(0~255)
-     *                    kLsColorBlue:       get RGB B value(0~255)
-     *                    kLsColorHue:        get HSV H value(0~360)
-     *                    kLsColorSaturation: get HSV S value(0~255)
-     *                    kLsColorValue:      get HSV V value(0~255)
-     * @retval Light sensor detected color data value
-     */
-    //% blockId=MU3LsReadColor block="%id|light sensor|read color %color_t"
-    //% group="Light Sensor"
-    //% deprecated=true shim=MUVisionSensor::LsReadColor
-    function LsReadColor(id: mu_id_t, color_t: MuVsLsColorType): uint16;
-}
-
-
-
-    //% color="#ff6600" weight=50 icon="\uf110"
-declare namespace muvs {
+    //% group="Light Sensor" shim=muvision::lsReadAmbientLight
+    function lsReadAmbientLight(id: mu_id_t): uint16;
 
     /**
      * get vision result data, this function will update vision result automatically.
@@ -149,8 +124,8 @@ declare namespace muvs {
      * @param vision_type: vision type.
      * @param object_inf:  object information
      */
-    //% blockId=MU3GetValue shim=muvs::GetValue
-    function GetValue(id: mu_id_t, vision_type: MuVsMessageVisionType, object_inf: MuVsObjectInf): int32;
+    //% blockId=mu3_get_value shim=muvision::getValue
+    function getValue(id: mu_id_t, vision_type: MuVsMessageVisionType, object_inf: MuVsObjectInf): int32;
 
     /**
      * @brief  write vision parameter.
@@ -159,64 +134,64 @@ declare namespace muvs {
      * @param object_inf  object information
      * @param value  value
      */
-    //% blockId=MU3write shim=muvs::write
+    //% blockId=mu3_write shim=muvision::write
     function write(id: mu_id_t, vision_type: MuVsMessageVisionType, object_inf: MuVsObjectInf, value: uint8): void;
 
     /**
      * @brief Read gesture sensor data.
      * @retval Gesture witch MU detected.
      */
-    //% blockId=MU3LsReadGesture shim=muvs::LsReadGesture
-    function LsReadGesture(id: mu_id_t): MuVsLsGesture;
+    //% blockId=mu3_ls_read_gesture shim=muvision::lsReadGesture
+    function lsReadGesture(id: mu_id_t): MuVsLsGesture;
 }
 
 
 
     //% color="#11ACEF" icon="\uf1eb"
-declare namespace MUVisionSensor_AT {
+declare namespace muvisionAT {
 
     /**
      * Read SIP 
      */
     //% blockId=MU3ATWifiSIP block="MU|read SIP"
-    //% group="MUVisionSensor3_AT" shim=MUVisionSensor_AT::WifiSIP
-    function WifiSIP(): string;
+    //% group="MUVisionSensor3_AT" shim=muvisionAT::wifiSIP
+    function wifiSIP(): string;
 
     /**
      * Read CIP 
      */
     //% blockId=MU3ATWifiCIP block="MU|read CIP"
-    //% group="MUVisionSensor3_AT" shim=MUVisionSensor_AT::WifiCIP
-    function WifiCIP(): string;
+    //% group="MUVisionSensor3_AT" shim=muvisionAT::wifiCIP
+    function wifiCIP(): string;
 
     /**
      * MU AT wifi set
      */
     //% blockId=MU3ATWifiSet block="MU|WiFi set|ssid|%ssid|password|%password|apmode|%apmode"
-    //% group="MUVisionSensor3_AT" shim=MUVisionSensor_AT::WifiSet
-    function WifiSet(ssid: string, password: string, apmode: mu3at_mode_t): void;
+    //% group="MUVisionSensor3_AT" shim=muvisionAT::wifiSet
+    function wifiSet(ssid: string, password: string, apmode: mu3at_mode_t): void;
 
     /**
      * MU AT wifi connect, return `true`=success
      */
     //% blockId=MU3ATWifiCon block="MU|WiFi connect|%status"
     //% status.shadow="toggleOnOff" status.defl="true"
-    //% group="MUVisionSensor3_AT" status.defl=1 shim=MUVisionSensor_AT::WifiCon
-    function WifiCon(status?: boolean): boolean;
+    //% group="MUVisionSensor3_AT" status.defl=1 shim=muvisionAT::wifiCon
+    function wifiCon(status?: boolean): boolean;
 
     /**
      * MU AT wifi set target IP&port 
      */
     //% blockId=MU3ATWifiUDP block="MU|WiFi set target IP|%ip|port|%port"
-    //% group="MUVisionSensor3_AT" shim=MUVisionSensor_AT::WifiUDP
-    function WifiUDP(ip: string, port: string): void;
+    //% group="MUVisionSensor3_AT" shim=muvisionAT::wifiUDP
+    function wifiUDP(ip: string, port: string): void;
 
     /**
      * MU AT wifi read data 
      */
     //% blockId=MU3ATWifiRead block="MU|WiFi read"
-    //% group="MUVisionSensor3_AT" shim=MUVisionSensor_AT::WifiRead
-    function WifiRead(): int32;
+    //% group="MUVisionSensor3_AT" shim=muvisionAT::wifiRead
+    function wifiRead(): int32;
 }
 
 // Auto-generated. Do not edit. Really.

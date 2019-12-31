@@ -7,3 +7,4 @@ projects
 *.db
 *.tgz
 _locales/*.json
+package-lock.json

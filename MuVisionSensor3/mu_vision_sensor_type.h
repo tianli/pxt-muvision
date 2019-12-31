@@ -30,7 +30,7 @@ typedef unsigned char mu_err_t;
 #define kVisionMaxType 9
 
 enum MuVsMessageVisionType {
-  //% block="🌈 Color Detect"
+  //% block="🌈 Color Block"
   kVisionColorDetect  = 1,
   //% block="🌈 Color Recognition"
   kVisionColorRecog   = 2,

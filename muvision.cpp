@@ -44,35 +44,32 @@ namespace muvision {
     /**
      * Initialize MU.
      */
-    //% blockId=mu3_begin block="init %id|interface %port"
+    //% blockId=mu3_begin block="initialize%id|port%port"
     //% group="Settings"
     void begin(MuId id, MuVsMode port) {
         if (!MU[id]) {
             MU[id] = new MuVisionSensor(0x60+id);
         }
-        MuVisionSensor *mu = MU[id];
         if (port == kSerialMode) {
-            mu->begin(&uBit.serial);
-        } else if(port == kI2CMode) {
-            mu->begin(&uBit.i2c);
+            MU[id]->begin(&uBit.serial);
+        } else if (port == kI2CMode) {
+            MU[id]->begin(&uBit.i2c);
         }
     }
 
     /**
      * Reset MU.
      */
-    //% blockId=mu3_reset block="%id|restore default settings"
+    //% blockId=mu3_set_default block="%id|restore default settings"
     //% group="Settings"
-    void reset(MuId id){
-        MuVisionSensor *mu = MU[id];
-        while(mu->SensorSetDefault()!=MU_OK);
+    void setDefault(MuId id){
+        while(MU[id]->SensorSetDefault()!=MU_OK);
     }
 
     /**
      * MU vision begin.
      */
     //% blockId=mu3_vision_begin block="%id|%enable|algorithm%type"
-    //% weight=50
     //% group="Settings"
     void visionBegin(MuId id, MuStatus status, MuVsMessageVisionType type){
         MuVisionSensor *mu = MU[id];
@@ -109,7 +106,6 @@ namespace muvision {
      * @param level vision level
      */
     //% blockId=mu3_vision_set_level block="%id|algorithm%VISION_TYPE|Level%level"
-    //% weight=96
     //% group="Settings" advanced=true
     void visionSetLevel(MuId id, MuVsMessageVisionType type, MuVsVisionLevel level){
         while(MU[id]->VisionSetLevel((MuVisionType)visionTypeEnumToMacro(type), level) != MU_OK);
@@ -120,7 +116,6 @@ namespace muvision {
      * @param zoom zoom value.
      */
     //% blockId=mu3_camera_set_zoom block="%id|digital zoom%level"
-    //% weight=95
     //% group="Settings" advanced=true
     void cameraSetZoom(MuId id, MuVsCameraZoom zoom) {
         while(MU[id]->CameraSetZoom(zoom) != MU_OK);
@@ -132,7 +127,6 @@ namespace muvision {
      * @param wb white balance type.
      */
     //% blockId=mu3_camera_set_awb block="%id|white balance%wb"
-    //% weight=93
     //% group="Settings" advanced=true
     void cameraSetAwb(MuId id, MuVsCameraWhiteBalance wb) {
         while(MU[id]->CameraSetAwb(wb) != MU_OK);

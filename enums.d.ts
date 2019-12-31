@@ -2,7 +2,7 @@
 
 
     declare const enum MuVsMessageVisionType {
-    //% block="🌈 Color Detect"
+    //% block="🌈 Color Block"
     kVisionColorDetect = 1,
     //% block="🌈 Color Recognition"
     kVisionColorRecog = 2,

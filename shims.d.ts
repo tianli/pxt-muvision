@@ -8,22 +8,21 @@ declare namespace muvision {
     /**
      * Initialize MU.
      */
-    //% blockId=mu3_begin block="init %id|interface %port"
+    //% blockId=mu3_begin block="initialize%id|port%port"
     //% group="Settings" shim=muvision::begin
     function begin(id: MuId, port: MuVsMode): void;
 
     /**
      * Reset MU.
      */
-    //% blockId=mu3_reset block="%id|restore default settings"
-    //% group="Settings" shim=muvision::reset
-    function reset(id: MuId): void;
+    //% blockId=mu3_set_default block="%id|restore default settings"
+    //% group="Settings" shim=muvision::setDefault
+    function setDefault(id: MuId): void;
 
     /**
      * MU vision begin.
      */
     //% blockId=mu3_vision_begin block="%id|%enable|algorithm%type"
-    //% weight=50
     //% group="Settings" shim=muvision::visionBegin
     function visionBegin(id: MuId, status: MuStatus, type: MuVsMessageVisionType): void;
 
@@ -47,7 +46,6 @@ declare namespace muvision {
      * @param level vision level
      */
     //% blockId=mu3_vision_set_level block="%id|algorithm%VISION_TYPE|Level%level"
-    //% weight=96
     //% group="Settings" advanced=true shim=muvision::visionSetLevel
     function visionSetLevel(id: MuId, type: MuVsMessageVisionType, level: MuVsVisionLevel): void;
 
@@ -57,7 +55,6 @@ declare namespace muvision {
      * @param zoom zoom value.
      */
     //% blockId=mu3_camera_set_zoom block="%id|digital zoom%level"
-    //% weight=95
     //% group="Settings" advanced=true shim=muvision::cameraSetZoom
     function cameraSetZoom(id: MuId, zoom: MuVsCameraZoom): void;
 
@@ -67,7 +64,6 @@ declare namespace muvision {
      * @param wb white balance type.
      */
     //% blockId=mu3_camera_set_awb block="%id|white balance%wb"
-    //% weight=93
     //% group="Settings" advanced=true shim=muvision::cameraSetAwb
     function cameraSetAwb(id: MuId, wb: MuVsCameraWhiteBalance): void;
 

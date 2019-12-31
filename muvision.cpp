@@ -234,17 +234,6 @@ namespace muvision {
     MuVsLsGesture lsReadGesture(MuId id) {
         return MU[id]->LsReadGesture();
     }
-    // //%
-    // int getValue(int id, int type, int item){
-    //     MuVisionSensor *mu = MU[id];
-    //     type=1<<(type-1);
-    //     return MU[id]->GetValue(type, MuVsObjectInf(item));    
-    // }
-    // //%
-    // int get_color_value(int id, int item){
-    //     MuVisionSensor *mu = MU[id];
-    //     return mu->GetValue(VISION_COLOR_RECOGNITION,MuVsObjectInf(item));    
-    // }
 }
 
 //% color="#11ACEF" icon="\uf1eb"

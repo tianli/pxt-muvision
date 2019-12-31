@@ -122,7 +122,7 @@
   "muvision.cameraSetFPS|block": "%id|高帧率模式$on",
   "muvision.cameraSetZoom|block": "%id|数码变焦%level",
   "muvision.colorBlockDetected|block": "%id|检测到%color|色块",
-  "muvision.colorBlockSetMinRecognitionSize|block": "%id|🌈 色块检查 设置最小识别尺寸|宽度 =%width|高度 =%height",
+  "muvision.colorBlockSetMinRecognitionSize|block": "%id|🌈 色块检测 设置最小识别尺寸|宽度 =%width|高度 =%height",
   "muvision.colorRcgDetected|block": "%id|识别到坐标|x =%x|y =%y|颜色",
   "muvision.colorRcgSetRegion|block": "%id|🌈 颜色识别 设置识别区域|宽度 =%width|高度 =%height",
   "muvision.colorRcgValue|block": "获取%id|算法 🌈 颜色识别|%item",

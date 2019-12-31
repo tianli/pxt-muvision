@@ -9,7 +9,7 @@
   "muvision.cameraSetZoom": "攝像頭設置數碼變焦值",
   "muvision.cameraSetZoom|param|id": "MU id",
   "muvision.cameraSetZoom|param|zoom": "數碼變焦值",
-  "muvision.colorBlockDetected": "設置色塊檢查檢測的顏色類型，並返回檢測狀態.",
+  "muvision.colorBlockDetected": "設置色塊檢測的顏色類型，並返回檢測狀態.",
   "muvision.colorBlockDetected|param|id": "MU id",
   "muvision.colorBlockDetected|param|label": "顏色類型",
   "muvision.colorBlockSetMinRecognitionSize": "設置演算法色塊檢測最小識別的色塊大小.",

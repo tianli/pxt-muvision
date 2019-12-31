@@ -1,21 +1,5 @@
 //% color="#ff6600" weight=20 icon="\uf085"
 namespace muvision {
-    // export enum VisionType {
-    //     //% block="🌈 Color Block"
-    //     VISION_COLOR_DETECT=1,
-    //     //% block="🌈 Color Recognition"
-    //     VISION_COLOR_RECOGNITION=2,
-    //     //% block="⚽ Ball Detect"
-    //     VISION_BALL_DETECT=3,
-    //     //% block="👥 Body Detect"
-    //     VISION_BODY_DETECT=5,
-    //     //% block="🔳 Shape Card"
-    //     VISION_SHAPE_CARD_DETECT=6,
-    //     //% block="🔳 Traffic Card"
-    //     VISION_TRAFFIC_CARD_DETECT=7,
-    //     //% block="🔳 Number Card"
-    //     VISION_NUM_CARD_DETECT=8
-    // }
     export enum VisionType {
         //% block="🌈 Color Block"
         VisionColorBlockDetect=1,

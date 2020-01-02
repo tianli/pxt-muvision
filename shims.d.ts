@@ -32,7 +32,6 @@ declare namespace muvision {
      * @param led led type.
      * @param detected_color led color while sensor detected target.
      * @param undetected_color led color while sensor undetected target.
-     * @param level led brightness, form 0(close) to 15
      */
     //% blockId=mu3_led_set_color block="%id|LED %led|when detected %detected_color|when undetected %undetected_color"
     //% weight=200 inlineInputMode=inline

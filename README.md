@@ -1,6 +1,6 @@
 # MU Vision Sensor 3
 
-The MU Vision Sensor is a sensor module that supports Arduino, Microbit, and other haredware platform that supports UART or I2C communication protocols.
+The [MU Vision Sensor](http://mai.morpx.com/goods.php?id=162) is a sensor module that supports Arduino, Microbit, and other haredware platform that supports UART or I2C communication protocols.
 
 ## Basic usage
 

@@ -1,6 +1,6 @@
 # MU Vision Sensor 3
 
-The [MU Vision Sensor](http://mai.morpx.com/goods.php?id=162) is a sensor module that supports Arduino, Microbit, and other haredware platform that supports UART or I2C communication protocols.
+The [MU Vision Sensor](http://mai.morpx.com/goods.php?id=162) is a sensor module for micro:bit and other hardware platform that support UART or I2C communication protocols.
 
 ## Basic usage
 
@@ -37,7 +37,7 @@ basic.forever(function () {
 
 * Read WiFi data(AP mode)
 
-Before your use this function, You need to set the FUNC switch to 10(WiFi AT mode) or 11(video transmission mode).
+Before you use this function, you need to set the FUNC switch to 10(WiFi AT mode) or 11(video transmission mode).
 
 ```blocks
 serial.redirect(
@@ -56,7 +56,7 @@ basic.forever(function () {
 
 * Read WiFi data(STA mode)
 
-Before your use this function, You need to set the FUNC switch to 10(WiFi AT mode) or 11(video transmission mode),
+Before you use this function, you need to set the FUNC switch to 10(WiFi AT mode) or 11(video transmission mode),
 and your device and MU must be connected to the same network.
 
 ```blocks
@@ -92,7 +92,7 @@ MIT
 
 * for PXT/microbit
 
-## What about other library for MU Vision Sensor?
+## What about other libraries for the MU Vision Sensor?
 
 * Arduino	    [https://github.com/mu-opensource/MuVisionSensor3](https://github.com/mu-opensource/MuVisionSensor3)
 * Mixly		    [https://github.com/mu-opensource/MuVisionSensor3-Mixly](https://github.com/mu-opensource/MuVisionSensor3-Mixly)

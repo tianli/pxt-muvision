@@ -8,11 +8,19 @@
 #ifndef PRODUCTS_MORPXPROTOCOLANALYSIS_MORPX_UART_INTERFACE_H_
 #define PRODUCTS_MORPXPROTOCOLANALYSIS_MORPX_UART_INTERFACE_H_
 
+#ifndef mbcodal
 #include "MicroBitSerial.h"
+#endif
 
 class MuUart {
  public:
+
+#ifndef mbcodal
   typedef MicroBitSerial* hw_port_t;
+#else
+  typedef int hw_port_t;
+#endif  // mbcodal
+
   MuUart(hw_port_t hw_port);
   virtual ~MuUart();
   MuUart(const MuUart&) = delete;

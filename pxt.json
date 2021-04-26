@@ -4,7 +4,8 @@
     "description": "MU Vision Sensor designed for the AI education.",
     "license": "MIT",
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "microphone": "*"
     },
     "files": [
         "README.md",

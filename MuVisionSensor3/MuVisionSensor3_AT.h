@@ -9,6 +9,10 @@
 #define MUVISIONSENSOR3_AT_H_
 
 #include <stdio.h>
+// Necessary to disable mbed bug
+#undef getc
+#undef putc
+
 #include "pxt.h"
 #include "mu_vision_sensor_type.h"
 

@@ -51,7 +51,10 @@ namespace muvision {
             MU[id] = new MuVisionSensor(0x60+id);
         }
         if (port == kSerialMode) {
+            // Disable serial communication in MicroBit v2.
+#if !MICROBIT_CODAL
             MU[id]->begin(&uBit.serial);
+#endif  // MICROBIT_CODAL
         } else if (port == kI2CMode) {
             MU[id]->begin(&uBit.i2c);
         }

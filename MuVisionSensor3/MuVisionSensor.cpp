@@ -79,7 +79,7 @@ uint8_t MuVisionSensor::VisionBegin(MuVisionType vision_type) {
   mu_err_t err;
   err = VisionSetStatus(vision_type, true);
   if (err) return err;
-  wait_ms(20);          // FIXME waiting for vision to initialize, may delete in later version
+  sleep_ms(20);          // FIXME waiting for vision to initialize, may delete in later version
   err = VisionSetOutputMode(kCallBackMode);
   if (err) return err;
   return MU_OK;

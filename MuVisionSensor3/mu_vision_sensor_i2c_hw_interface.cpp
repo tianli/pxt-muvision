@@ -4,6 +4,7 @@
  *  Created on: 2018年8月8日
  *      Author: ysq
  */
+#include "pxt.h"
 
 #include "mu_vision_sensor_i2c_hw_interface.h"
 #include "DebugTool/morpx_debug_tool.h"
@@ -20,14 +21,28 @@ uint32_t MuVisionSensorI2C::I2CRead(uint8_t reg_address, uint8_t* temp) {
 #if MORPX_DEBUG_ENABLE && LOG_OUTPUT
   printf("[R:%02x,", reg_address);
 #endif
+
+#if !MICROBIT_CODAL
   if (i2c_port_->write(mu_address_<<1, (const char *)&reg_address, 1) != MICROBIT_OK)
       return MU_FAIL;
+#else
+  if (i2c_port_->write(mu_address_<<1, (uint8_t *)&reg_address, 1) != MICROBIT_OK)
+      return MU_FAIL;
+#endif  // MICROBIT_CODAL
+
   //Debug Output
 #if MORPX_DEBUG_ENABLE && LOG_OUTPUT
   printf("%02x],", *temp);
 #endif
+
+#if !MICROBIT_CODAL
   if (i2c_port_->read(mu_address_<<1, (char *)temp, 1) != MICROBIT_OK)
       return MU_FAIL;
+#else
+  if (i2c_port_->read(mu_address_<<1, (uint8_t *)temp, 1) != MICROBIT_OK)
+      return MU_FAIL;
+#endif  // MICROBIT_CODAL
+
   return MU_OK;
 }
 

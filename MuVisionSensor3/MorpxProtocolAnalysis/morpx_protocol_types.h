@@ -11,6 +11,9 @@
 #include "SimpleList.h"
 #include <stdint.h>
 #include <string.h>
+// BUGFIX: disable getc and putc to avoid conflict with mbed getc and putc function.
+#undef putc
+#undef getc
 
 #define PROTOCOL_SINGLE_BUFFER_SIZE 40
 #define PROTOCOL_BUFFER_DEEP        1

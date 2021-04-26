@@ -5,6 +5,8 @@
  *      Author: ysq
  */
 
+#include "pxt.h"
+
 #include "DebugTool/morpx_debug_tool.h"
 #include "mu_uart_interface.h"
 
@@ -16,7 +18,7 @@ MuUart::~MuUart() {
 }
 
 size_t MuUart::available(void) {
-#ifndef mbcodal
+#if !MICROBIT_CODAL
   return hw_port_->isReadable();
 #else
   return 0;
@@ -24,7 +26,7 @@ size_t MuUart::available(void) {
 }
 
 size_t MuUart::read(uint8_t* buf, unsigned int length) {
-#ifndef mbcodal
+#if !MICROBIT_CODAL
   size_t ret = hw_port_->read(buf, length);
 #else
   size_t ret = 0;
@@ -45,7 +47,7 @@ size_t MuUart::write(uint8_t* buf, unsigned int length) {
   }
 #endif
 
-#ifndef mbcodal
+#if !MICROBIT_CODAL
   return hw_port_->send(buf, length);
 #else
   return 0;

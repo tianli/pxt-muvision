@@ -138,6 +138,12 @@ declare namespace muvision {
      */
     //% blockId=mu3_ls_read_gesture shim=muvision::lsReadGesture
     function lsReadGesture(id: MuId): MuVsLsGesture;
+
+   /**
+    * Enable the muvision buttons. // Dummy function to avoid simulator crash.
+    */
+    //% shim=muvision::enable
+    export function enable(): void { basic.pause(100) }
 }
 
 
@@ -187,6 +193,12 @@ declare namespace muvisionAT {
     //% blockId=mu3_at_wifi_read block="MU|WiFi read"
     //% group="MUVisionSensor3_AT" shim=muvisionAT::wifiRead
     function wifiRead(): int32;
+
+   /**
+    * Enable the muvisionAT buttons. // Dummy function to avoid simulator crash.
+    */
+    //% shim=muvisionAT::enable
+    export function enable(): void { basic.pause(100) }
 }
 
 // Auto-generated. Do not edit. Really.

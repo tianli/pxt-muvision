@@ -3,7 +3,7 @@
 
 
     //% color="#ff6600" weight=50 icon="\uf110"
-declare namespace muvision {
+namespace muvision {
 
     /**
      * Initialize MU.
@@ -102,7 +102,7 @@ declare namespace muvision {
      */
     //% blockId=MU3LsReadProximity block="%id|light sensor|read proximity"
     //% group="Light Sensor" shim=muvision::lsReadProximity
-    export function lsReadProximity(id: MuId): uint8 { basic.pause(100) }
+    export function lsReadProximity(id: MuId): uint8 { basic.pause(100); return 0; }
 
     /**
      * @brief Read ambient light sensor data.
@@ -111,7 +111,7 @@ declare namespace muvision {
      */
     //% blockId=MU3LsReadAmbientLight block="%id|light sensor|read ambient light"
     //% group="Light Sensor" shim=muvision::lsReadAmbientLight
-    export function lsReadAmbientLight(id: MuId): uint16 { basic.pause(100) }
+    export function lsReadAmbientLight(id: MuId): uint16 { basic.pause(100); return 0; }
 
     /**
      * get vision result data, this function will update vision result automatically.
@@ -120,7 +120,7 @@ declare namespace muvision {
      * @param object_inf:  object information
      */
     //% blockId=mu3_get_value shim=muvision::getValue
-    export function getValue(id: MuId, vision_type: MuVsMessageVisionType, object_inf: MuVsObjectInf): int32 { basic.pause(100) }
+    export function getValue(id: MuId, vision_type: MuVsMessageVisionType, object_inf: MuVsObjectInf): int32 { basic.pause(100); return 0; }
 
     /**
      * @brief  write vision parameter.
@@ -137,27 +137,27 @@ declare namespace muvision {
      * @retval Gesture witch MU detected.
      */
     //% blockId=mu3_ls_read_gesture shim=muvision::lsReadGesture
-    export function lsReadGesture(id: MuId): MuVsLsGesture { basic.pause(100) }
+    export function lsReadGesture(id: MuId): MuVsLsGesture { basic.pause(100); return null }
 }
 
 
 
     //% color="#11ACEF" icon="\uf1eb"
-declare namespace muvisionAT {
+namespace muvisionAT {
 
     /**
      * Read SIP 
      */
     //% blockId=mu3_at_wifi_sip block="MU|read SIP"
     //% group="MUVisionSensor3_AT" shim=muvisionAT::wifiSIP
-    export function wifiSIP(): string { basic.pause(100) }
+    export function wifiSIP(): string { basic.pause(100); return null; }
 
     /**
      * Read CIP 
      */
     //% blockId=mu3_at_wifi_cip block="MU|read CIP"
     //% group="MUVisionSensor3_AT" shim=muvisionAT::wifiCIP
-    export function wifiCIP(): string { basic.pause(100) }
+    export function wifiCIP(): string { basic.pause(100); return null; }
 
     /**
      * MU AT wifi set
@@ -172,7 +172,7 @@ declare namespace muvisionAT {
     //% blockId=mu3_at_wifi_con block="MU|WiFi connect|%status"
     //% status.shadow="toggleOnOff" status.defl="true"
     //% group="MUVisionSensor3_AT" status.defl=1 shim=muvisionAT::wifiCon
-    export function wifiCon(status?: boolean): boolean { basic.pause(100) }
+    export function wifiCon(status?: boolean): boolean { basic.pause(100); return false; }
 
     /**
      * MU AT wifi set target IP&port 
@@ -186,7 +186,7 @@ declare namespace muvisionAT {
      */
     //% blockId=mu3_at_wifi_read block="MU|WiFi read"
     //% group="MUVisionSensor3_AT" shim=muvisionAT::wifiRead
-    export function wifiRead(): int32 { basic.pause(100) }
+    export function wifiRead(): int32 { basic.pause(100); return 0; }
 }
 
 // Auto-generated. Do not edit. Really.
